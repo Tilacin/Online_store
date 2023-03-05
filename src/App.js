@@ -5,8 +5,9 @@ import React from "react";
 
 function App() {
   const [items, setItems] = React.useState([]);
+  const [cartItems, setCartItems] = React.useState([]);//массив для карзины
   const [cartOpened, setCartOpened] = React.useState(false);
-React.useEffect(() => {
+React.useEffect(() => {//что бы не отправлялся запрос на бэк постоянно оборачиваем в React.useEffect()
 //Отправляем запрос на сервер, ответ превращаем в json формат
 fetch("https://6401bfb73779a862625cf291.mockapi.io/items")
 .then((res) => {
@@ -17,11 +18,13 @@ fetch("https://6401bfb73779a862625cf291.mockapi.io/items")
 });
 }, [])
 
-  
+ const onAddToCart = (obj) => {
+  setCartItems(prev =>[...prev, obj])
+ }
 
   return (
     <div className="wrapper clear">
-      {cartOpened ? <Drawer onClose={() => setCartOpened(false)} /> : null}
+      {cartOpened ? <Drawer items={cartItems} onClose={() => setCartOpened(false)} /> : null}
       <Header onClickCart={() => setCartOpened(true)} />
       <div className="content p-40">
         <div className="d-flex align-center justify-between mb-40">
@@ -32,13 +35,13 @@ fetch("https://6401bfb73779a862625cf291.mockapi.io/items")
           </div>
         </div>
         <div className="d-flex flex-wrap">
-          {items.map((obj) => (
+          {items.map((item) => (
             <Card
-              title={obj.title}
-              price={obj.price}
-              imageUrl={obj.imageUrl}
+              title={item.title}
+              price={item.price}
+              imageUrl={item.imageUrl}
               onFavorite={() => console.log("Добавили в закладки")}
-              onPlus={() => console.log("Нажали плюс")}
+              onPlus={(obj) => onAddToCart(obj)}
             />
           ))}
         </div>
