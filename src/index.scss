@@ -33,11 +33,19 @@ header {
   }
 }
 
-
 .search-block {
   border: 1px solid #f3f3f3;
   border-radius: 10px;
   padding: 0 15px;
+  position: relative;
+
+  .clear {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 14px;
+    right: 15px;
+  }
 
   input {
     border: 0;
@@ -66,14 +74,14 @@ header {
   box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
   padding: 30px;
 
-.items {
-  overflow: auto;//при заполнении корзины появляется полоса прокрутки и не вместившиеся элементы скрываются
-  margin-bottom: 40px;
-}                
+  .items {
+    flex: 1;
+    overflow: auto; //при заполнении корзины появляется полоса прокрутки и не вместившиеся элементы скрываются
+    margin-bottom: 40px;
+  }
 
   h2 {
     margin: 0;
-    
   }
 }
 .cartTotalBlock {
@@ -97,12 +105,13 @@ header {
   .greenButton {
     position: relative;
 
-    &:hover {//при наведении на кнопку стрелка двигается вперёд
+    &:hover {
+      //при наведении на кнопку стрелка двигается вперёд
       img {
         transform: translateX(5px);
       }
     }
-    
+
     img {
       position: absolute;
       right: 30px;
@@ -112,24 +121,24 @@ header {
   }
 }
 .greenButton {
-    width: 100%;
-    height: 55px;
-    background: #9dd558;
-    border-radius: 18px;
-    border: 0;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 500;
-    
-    transition: background-color 0.1s ease-in-out;
+  width: 100%;
+  height: 55px;
+  background: #9dd558;
+  border-radius: 18px;
+  border: 0;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
 
-    &:hover {
-      background: lighten(#9dd558, 5%);//светлеть при наведении
-    }
-    &:active {
-      background: darken(#9dd558, 5%);//темнеть при нажатии
-    }
-    cursor: pointer;
+  transition: background-color 0.1s ease-in-out;
+
+  &:hover {
+    background: lighten(#9dd558, 5%); //светлеть при наведении
+  }
+  &:active {
+    background: darken(#9dd558, 5%); //темнеть при нажатии
+  }
+  cursor: pointer;
 }
 .cartItem {
   border: 1px solid #f3f3f3; //контур
@@ -162,6 +171,26 @@ header {
     }
   }
 }
-.items {
-  flex: 1;
+.cartEmpty {
+  text-align: center;
+  p{
+    width: 280px;
+    line-height: 24px;
+  }
+  .greenButton {
+    width: 245px;
+    margin-top: 20px;
+  }
+  &:hover {
+    img {
+      transform: rotate(180deg) translateX(3px);
+    }
+  }
+  img {
+    position: relative;
+    top: 1px;
+    //transform: rotate(180deg);
+    margin-right: 15px;
+    transition: transform 0.15s ease-in-out;
+  }
 }

@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react";
 import styles from "./Card.module.scss";
 
-function Card({onFavorite,title,imageUrl,price,onPlus}) {
-const [isAdded, setIaAdded] = React.useState(false)
+function Card({ title, imageUrl, price, onFavorite, onPlus }) {
+  const [isAdded, setIsAdded] = React.useState(false);
 
-const onClickPlus = () => {
-  onPlus({title,imageUrl,price})
-  setIaAdded(!isAdded)//если была true, станет false и на оборот
-}
+  const onClickPlus = () => {
+    onPlus({ title, imageUrl, price });
+    setIsAdded(!isAdded); //если была true, станет false и на оборот
+  };
 
   return (
     <div className={styles.card}>
@@ -23,11 +23,11 @@ const onClickPlus = () => {
         </div>
 
         <img
-        className={styles.plus}
+          className={styles.plus}
           onClick={onClickPlus}
           width={31}
           height={31}
-          src={isAdded ? "/img/btn-checked.svg":"/img/btn-plus.svg"}
+          src={isAdded ? "/img/btn-checked.svg" : "/img/btn-plus.svg"}
           alt="Plus"
         />
       </div>
