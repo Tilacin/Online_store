@@ -1,4 +1,5 @@
 import React from "react";
+//import { Route} from 'react-router-dom'
 import axios from "axios";
 import Card from "./components/Card";
 import Header from "./components/Header";
@@ -7,6 +8,7 @@ import Drawer from "./components/Drawer";
 function App() {
   const [items, setItems] = React.useState([]);
   const [cartItems, setCartItems] = React.useState([]); //Состаяние  карзины
+  const [favorites, setIsFavorites] = React.useState([]); //Состояние закладок(сердечек)
   const [searchValue, setSearchValue] = React.useState(""); // Состаяние инпута
   const [cartOpened, setCartOpened] = React.useState(false);
   React.useEffect(() => {
@@ -24,16 +26,22 @@ function App() {
   }, []);
   //Корзина
   const onAddToCart = (obj) => {
-    
-    axios.post("https://6401bfb73779a862625cf291.mockapi.io/cart", obj);//сохраняем товары в корзине на бэке
 
-    setCartItems((prev) => [...prev, obj]); //отображаем товары в корзине
+    axios
+      .post("https://6401bfb73779a862625cf291.mockapi.io/cart", obj) //сохраняем товары в корзине на бэке
+      .then((res) => setCartItems((prev) => [...prev, res.data])); //отображаем товары в корзине с бэка
+
   };
-
-const onRemoveItem = (id) => {
-  //axios.delete(`https://6401bfb73779a862625cf291.mockapi.io/cart/${id}` )
-  setCartItems((prev) => prev.filter(item => item.id !== id));
-}
+  //удаляем товары
+  const onRemoveItem = (id) => {
+    axios.delete(`https://6401bfb73779a862625cf291.mockapi.io/cart/${id}`); //удаляем с бэка
+    setCartItems((prev) => prev.filter((item) => item.id !== id)); //удаляем с фронта
+  };
+  //сердечки
+  const onAddToFavorite = (obj) => {
+    axios.post("https://640889942f01352a8a95d5d7.mockapi.io/favorites", obj); //сохраняем избраное в корзине на бэке
+    setIsFavorites((prev) => [...prev, obj]); //отображаем избраное
+  };
 
   //Инпут
   const onChangeSearchInput = (event) => {
@@ -43,9 +51,16 @@ const onRemoveItem = (id) => {
   return (
     <div className="wrapper clear">
       {cartOpened ? (
-        <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem}/>
+        <Drawer
+          items={cartItems}
+          onClose={() => setCartOpened(false)}
+          onRemove={onRemoveItem}
+        />
       ) : null}
       <Header onClickCart={() => setCartOpened(true)} />
+
+     
+
       <div className="content p-40">
         <div className="d-flex align-center justify-between mb-40">
           <h1>
@@ -83,7 +98,7 @@ const onRemoveItem = (id) => {
                 title={item.title}
                 price={item.price}
                 imageUrl={item.imageUrl}
-                onFavorite={() => console.log("Добавили в закладки")}
+                onFavorite={(obj) => onAddToFavorite(obj)}
                 onPlus={(obj) => onAddToCart(obj)}
               />
             ))}

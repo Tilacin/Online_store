@@ -12,7 +12,8 @@ function Drawer({ onClose, onRemove, items = [] }) {
           />
         </h2>
         {items.length > 0 ? (
-          <div className="items">
+          <div>
+<div className="items">
             {items.map((obj) => (
               <div className="cartItem d-flex align-center mb-20">
                 <div
@@ -32,6 +33,25 @@ function Drawer({ onClose, onRemove, items = [] }) {
               </div>
             ))}
           </div>
+           <div className="cartTotalBlock">
+           <ul>
+             <li className="d-flex">
+               <span>Итого</span>
+               <div></div>
+               <b>21 498 руб.</b>
+             </li>
+             <li className="d-flex">
+               <span>Налог 5%:</span>
+               <div></div>
+               <b>1074 руб.</b>
+             </li>
+           </ul>
+           <button className="greenButton">
+             Оформить заказ <img src="/img/arrow.svg" alt="Arrow" />
+           </button>
+         </div>
+          </div>
+          
         ) : (
           <div className="cartEmpty d-flex align-center justify-center flex-column flex">
             <img
@@ -45,30 +65,14 @@ function Drawer({ onClose, onRemove, items = [] }) {
             <p className="opacity-6">
               Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ
             </p>
-            <button className="greenButton">
+            <button onClick={onClose} className="greenButton">
               <img src="/img/arrow.svg" alt="Arrow" />
               Вернуться назад
             </button>
           </div>
         )}
 
-        <div className="cartTotalBlock">
-          <ul>
-            <li className="d-flex">
-              <span>Итого</span>
-              <div></div>
-              <b>21 498 руб.</b>
-            </li>
-            <li className="d-flex">
-              <span>Налог 5%:</span>
-              <div></div>
-              <b>1074 руб.</b>
-            </li>
-          </ul>
-          <button className="greenButton">
-            Оформить заказ <img src="/img/arrow.svg" alt="Arrow" />
-          </button>
-        </div>
+       
       </div>
     </div>
   );
