@@ -1,30 +1,35 @@
+import React from "react";
 import Card from "../components/Card";
 
+
 function Home({ items,
-  cartItems,
+  
   searchValue,
   setSearchValue,
-  onAddToCart,
-  onAddToFavorite,
   onChangeSearchInput,
+  onAddToFavorite,
+  onAddToCart,
   isLoading
 }) {
+
+
   const renderItems = () => {
-    return (isLoading ? [...Array(10)] : items
-      .filter((item) =>
-        item.title.toLowerCase().includes(searchValue.toLowerCase()))
+    const filteredItems = items.filter((item) =>
+      item.title.toLowerCase().includes(searchValue.toLowerCase()),
       )
+
+    return (isLoading ? [...Array(10)] : filteredItems)
       .map((item, index) => (
         <Card
           key={index}
           onFavorite={(obj) => onAddToFavorite(obj)}
           onPlus={(obj) => onAddToCart(obj)}
-          added={cartItems.some(obj => obj.title === item.title)}
-          loading={false}
+         
+          loading={isLoading}
           {...item}
         />
       ))
-    
+
 
   }
 
@@ -32,10 +37,10 @@ function Home({ items,
     <div className="content p-40">
       <div className="d-flex align-center justify-between mb-40">
         <h1>
-          {" "}
+          
           {searchValue
             ? `Поиск по запросу: "${searchValue}"`
-            : "Все кроссовки"}{" "}
+            : "Все кроссовки"}
         </h1>
         <div className="search-block d-flex">
           <img src="/img/search.svg" alt="Search" />
