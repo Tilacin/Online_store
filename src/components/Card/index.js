@@ -15,7 +15,8 @@ function Card({
   loading = false
 }) {
   const { isItemAdded } = React.useContext(AppContext);
-
+ 
+  
   const [isFavorite, setIsFavorite] = React.useState(favorited); //состояние сердечка
 
   const onClickPlus = () => {
@@ -60,7 +61,7 @@ function Card({
               <span>Цена:</span>
               <b>{price} руб.</b>
             </div>
-            
+           
             <img
               className={styles.plus}
               onClick={onClickPlus}
