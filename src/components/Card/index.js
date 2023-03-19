@@ -5,6 +5,7 @@ import styles from "./Card.module.scss";
 
 function Card({
   id,
+ 
   title,
   imageUrl,
   price,
@@ -15,15 +16,15 @@ function Card({
   loading = false,
 }) {
   const { isItemAdded } = React.useContext(AppContext);
-
-  const [isFavorite, setIsFavorite] = React.useState(favorited); //состояние сердечка
+const [isFavorite, setIsFavorite] = React.useState(favorited); //состояние сердечка
+const obj = { id, parentId: id, title, imageUrl, price }
 
   const onClickPlus = () => {
-    onPlus({ id, title, imageUrl, price });
+    onPlus(obj);
   };
 
   const onClickFavorite = () => {
-    onFavorite({ id, title, imageUrl, price });
+    onFavorite(obj);
     setIsFavorite(!isFavorite); //при нажатии на сердечко,если не выбрано выбирается и наоборот
   };
 
