@@ -42,19 +42,24 @@ function App() {
 
   const onAddToCart = async (obj) => {
     try {
-      if (cartItems.find((item) => Number(item.parentId) === Number(obj.id))) {
+      const findItem = cartItems.find(
+        (item) => Number(item.parentId) === Number(obj.id)
+      );
+      if (findItem) {
         setCartItems((prev) =>
-          prev.filter((item) => Number(item.id) !== Number(obj.id))
+          prev.filter((item) => Number(item.parentId) !== Number(obj.id))
         );
         await axios.delete(
-          `https://6401bfb73779a862625cf291.mockapi.io/cart/${obj.id}`
+          `https://6401bfb73779a862625cf291.mockapi.io/cart/${findItem.id}`
         );
       } else {
-        setCartItems((prev) => [...prev, obj]);
-        await axios.post(
+       
+        //ждём ответ с бэка
+        const { data } = await axios.post(
           "https://6401bfb73779a862625cf291.mockapi.io/cart",
           obj
-        );
+        );//сохраняем в корзине
+        setCartItems((prev) => [...prev, data]);
       }
     } catch (error) {
       alert("Не поллучилось добавить в корзину");
