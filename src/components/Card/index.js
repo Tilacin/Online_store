@@ -50,7 +50,7 @@ const obj = { id, parentId: id, title, imageUrl, price }
           {onFavorite && (
             <div className={styles.favorite} onClick={onClickFavorite}>
               <img
-                src={isFavorite ? "/img/heart-on.svg" : "/img/heart-off.svg"}
+                src={isFavorite ? "img/heart-on.svg" : "img/heart-off.svg"}
                 alt="Unliked"
               />
             </div>
@@ -68,7 +68,7 @@ const obj = { id, parentId: id, title, imageUrl, price }
                 className={styles.plus}
                 onClick={onClickPlus}
                 src={
-                  isItemAdded(id) ? "/img/btn-checked.svg" : "/img/btn-plus.svg"
+                  isItemAdded(id) ? "img/btn-checked.svg" : "img/btn-plus.svg"
                 }
                 alt="Plus"
               />
